@@ -45,6 +45,10 @@ export const authOptions: AuthOptions = {
                     user.hashedPassword
                 );
 
+                if (!isCorrectPassword){
+                    throw new Error('Invalid credentials');
+                }
+
                 return user;
             }
         })
@@ -52,7 +56,7 @@ export const authOptions: AuthOptions = {
     pages: {
         signIn: '/',
     },
-    debug: process.env.NODE_ENV === 'development',
+    debug: process.env.NODE_ENV === 'development' || process.env.NODE_ENV !== "production",
     session: {
         strategy: 'jwt'
     },
