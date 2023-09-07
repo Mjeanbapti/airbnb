@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import { AiFillGithub } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import { useState } from 'react';
@@ -17,6 +17,7 @@ import { signIn } from 'next-auth/react';
 
 const LoginModal = () => {
     const router = useRouter();
+
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
 
@@ -55,6 +56,11 @@ const LoginModal = () => {
                 }
             })
     }
+
+    const toggle = useCallback(() => {
+        loginModal.onClose();
+        registerModal.onOpen();
+    }, [loginModal, registerModal])
 
     const bodyContent = (
         <div className="flex flex-col gap-4">
@@ -105,17 +111,17 @@ const LoginModal = () => {
             '>
                 <div className="flex flex-row items-center justify-center gap-2">
                     <div>
-                        Already have an account?
+                        First time using AirBnB?
                     </div>
                     <div
-                        onClick={registerModal.onClose}
+                        onClick={toggle}
                         className='
                             text-neutral-800
                             cursor-pointer
                             hover:underline
                         '
                     >
-                        Log in
+                        Sign up
                     </div>
 
                 </div>
